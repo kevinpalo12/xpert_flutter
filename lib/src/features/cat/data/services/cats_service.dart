@@ -55,7 +55,7 @@ class CatsServiceImpl implements CatsService {
       };
 
       var response = await _dio.get(
-        'https://api.thecatapi.com/v1/images/search',
+        'images/search',
         queryParameters: queryParams,
       );
       if (response.statusCode == 200) {
