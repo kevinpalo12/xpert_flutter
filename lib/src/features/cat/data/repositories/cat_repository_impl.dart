@@ -33,10 +33,13 @@ class CatRepositoryImpl implements CatRepository {
   @override
   Future<Either<ErrorModel, List<CatImageModel>>> getImagesCat(
     BuildContext context, {
+    int? limit,
     required String catID,
   }) async {
     try {
-      return Right(await _catsService.getImagesCat(context, catID: catID));
+      return Right(
+        await _catsService.getImagesCat(context, catID: catID, limit: limit),
+      );
     } on DioException catch (e) {
       if (e.error == "OSError") {
         return Left(ErrorModel(code: 'Dio'));

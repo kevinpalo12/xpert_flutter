@@ -36,6 +36,7 @@ class CatEntity {
   final String wikipediaUrl;
   final String referenceImageId;
   final CatWeightEntity weight;
+  CatImageEntity? image;
 
   CatEntity({
     required this.id,
@@ -70,6 +71,7 @@ class CatEntity {
     required this.wikipediaUrl,
     required this.referenceImageId,
     required this.weight,
+    this.image,
     this.lap,
     this.altNames,
     this.cfaUrl,

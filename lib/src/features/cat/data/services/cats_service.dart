@@ -8,6 +8,7 @@ abstract class CatsService {
   Future<List<CatImageModel>> getImagesCat(
     BuildContext context, {
     required String catID,
+    int? limit,
   });
 }
 
@@ -44,11 +45,12 @@ class CatsServiceImpl implements CatsService {
   Future<List<CatImageModel>> getImagesCat(
     BuildContext context, {
     required String catID,
+    int? limit = 100,
   }) async {
     try {
       Map<String, dynamic> queryParams = {
         "breed_ids": catID,
-        "limit": 100,
+        "limit": limit,
         'api_key': dotenv.env['API_CATS'].toString(),
       };
 

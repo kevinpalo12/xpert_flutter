@@ -34,6 +34,7 @@ class CatModel extends CatEntity {
     required super.wikipediaUrl,
     required super.referenceImageId,
     required super.weight,
+    super.image,
     super.lap,
     super.altNames,
     super.cfaUrl,
@@ -83,7 +84,19 @@ class CatModel extends CatEntity {
       cfaUrl: json['cfa_url'],
       vetstreetUrl: json['vetstreet_url'],
       vcahospitalsUrl: json['vcahospitals_url'],
+      image: json['image'] != null
+          ? CatImageEntity(
+              id: json['image']['id'],
+              width: json['image']['width'],
+              height: json['image']['height'],
+              url: json['image']['url'],
+            )
+          : null,
     );
+  }
+
+  void setImage(CatImageModel image) {
+    this.image = image;
   }
 
   @override
@@ -115,7 +128,7 @@ class CatImageModel extends CatImageEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CatModel && runtimeType == other.runtimeType && id == other.id;
+      other is CatImageModel && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

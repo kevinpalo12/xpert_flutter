@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,13 @@ class CatCubit extends Cubit<CatState> {
 
   CatCubit(this._getCatsUseCase, this._getCatImagesUseCase)
     : super(
-        CatState(isLoading: false, selectedCat: '', cats: [], catImages: []),
+        CatState(
+          isLoading: false,
+          selectedCat: '',
+          cats: [],
+          catImages: [],
+          pageController: CarouselSliderController(),
+        ),
       );
 
   void _showLoading({required bool isLoading}) {
@@ -50,13 +57,30 @@ class CatCubit extends Cubit<CatState> {
     _showLoading(isLoading: false);
   }
 
-  void getCatImages(BuildContext context) async {
+  void changeIndex(BuildContext context, {int newIndex = 0}) {
+    List<CatModel> cats = state.cats;
+    CatModel cat;
+    if (cats.isNotEmpty) {
+      cat = cats[newIndex];
+      emit(state.copyWith(cat: cat, selectedCat: cat.id));
+      if (cat.image == null) getCatImages(context, limit: 1);
+    }
+    emit(state.copyWith(currentIndex: newIndex));
+  }
+
+  void getCatImages(BuildContext context, {int? limit}) async {
     _showLoading(isLoading: true);
     final result = await _getCatImagesUseCase.call(
       context,
       catID: state.selectedCat,
+      limit: limit,
     );
     result.fold((error) {}, (response) {
+      CatModel? catTemp = state.cat;
+      if (catTemp != null) {
+        catTemp.setImage(response.first);
+        emit(state.copyWith(cat: catTemp));
+      }
       setCatImages(catImages: response);
     });
     _showLoading(isLoading: false);

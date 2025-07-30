@@ -8,5 +8,6 @@ abstract class CatRepository {
   Future<Either<ErrorModel, List<CatImageModel>>> getImagesCat(
     BuildContext context, {
     required String catID,
+     int? limit = 100,
   });
 }

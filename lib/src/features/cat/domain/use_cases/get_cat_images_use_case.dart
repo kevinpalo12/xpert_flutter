@@ -13,7 +13,12 @@ class GetCatImagesUseCase {
   Future<Either<ErrorModel, List<CatImageModel>>> call(
     BuildContext context, {
     required String catID,
+    int? limit,
   }) async {
-    return await _catRepository.getImagesCat(context, catID: catID);
+    return await _catRepository.getImagesCat(
+      context,
+      catID: catID,
+      limit: limit,
+    );
   }
 }

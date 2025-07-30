@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xpert_flutter/src/features/cat/cubit/cat_cubit.dart';
 import 'package:xpert_flutter/src/features/cat/data/models/cat_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xpert_flutter/utils/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.catCubit});
@@ -84,22 +85,22 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Center(
         child: Column(
           children: [
-            _infoText(
+            infoText(
               context,
               label: 'Raza',
               value: widget.catCubit.state.cat!.name,
             ),
-            _infoText(
+            infoText(
               context,
               label: 'Expectativa de vida',
               value: '${widget.catCubit.state.cat!.lifeSpan} años',
             ),
-            _infoText(
+            infoText(
               context,
               label: 'Inteligencia',
               value: widget.catCubit.state.cat!.intelligence.toString(),
             ),
-            _infoText(
+            infoText(
               context,
               label: 'Origen',
               value: widget.catCubit.state.cat!.origin,
@@ -195,24 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _infoText(
-    BuildContext context, {
-    required String label,
-    required String value,
-  }) {
-    return RichText(
-      text: TextSpan(
-        style: TextStyle(color: Colors.black, fontSize: 16),
-        children: [
-          TextSpan(text: '$label: '),
-          TextSpan(
-            text: value,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _filtros(BuildContext context) {
     final state = widget.catCubit.state;

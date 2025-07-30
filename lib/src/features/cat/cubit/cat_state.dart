@@ -7,8 +7,12 @@ class CatState extends Equatable {
   final List<CatModel> cats;
   final List<CatImageModel> catImages;
   final CatModel? cat;
+  final int currentIndex;
+  final CarouselSliderController pageController;
 
   const CatState({
+    required this.pageController,
+    this.currentIndex = 0,
     this.isLoading = false,
     this.error,
     required this.selectedCat,
@@ -25,6 +29,8 @@ class CatState extends Equatable {
     cats,
     catImages,
     cat ?? '',
+    currentIndex,
+    pageController,
   ];
 
   CatState copyWith({
@@ -34,8 +40,12 @@ class CatState extends Equatable {
     List<CatModel>? cats,
     List<CatImageModel>? catImages,
     CatModel? cat,
+    int? currentIndex,
+    CarouselSliderController? pageController,
   }) {
     return CatState(
+      pageController: pageController ?? this.pageController,
+      currentIndex: currentIndex ?? this.currentIndex,
       cat: cat ?? this.cat,
       catImages: catImages ?? this.catImages,
       cats: cats ?? this.cats,
