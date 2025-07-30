@@ -63,7 +63,7 @@ class CatCubit extends Cubit<CatState> {
     if (cats.isNotEmpty) {
       cat = cats[newIndex];
       emit(state.copyWith(cat: cat, selectedCat: cat.id));
-      if (cat.image == null) getCatImages(context, limit: 1);
+      getCatImages(context);
     }
     emit(state.copyWith(currentIndex: newIndex));
   }

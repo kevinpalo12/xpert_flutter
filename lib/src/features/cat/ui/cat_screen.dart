@@ -161,7 +161,7 @@ class _CatScreenState extends State<CatScreen> {
           borderRadius: BorderRadius.circular(12),
           child: Image.network(
             cat.image?.url ?? '',
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
             width: MediaQuery.of(context).size.width,
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;

@@ -50,7 +50,7 @@ class CatsServiceImpl implements CatsService {
     try {
       Map<String, dynamic> queryParams = {
         "breed_ids": catID,
-        "limit": limit,
+        "limit": 100,
         'api_key': dotenv.env['API_CATS'].toString(),
       };
 
